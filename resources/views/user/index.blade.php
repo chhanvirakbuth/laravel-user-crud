@@ -24,8 +24,12 @@
                 <td>{{ $user->user_type_id ?? "N/A" }}</td>
 
                 <td>
-                    <a href="" class="btn btn-sm btn-primary"><i class="material-icons">create</i></a>
-                    <a href="" class="btn btn-sm btn-danger"><i class="material-icons">delete</i></a>
+                    <form class="{{ $user->id }}" action="{{ route('user.delete' , ['id' => $user->id ])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <a href="{{ route('user.edit' , ['id' => $user->id])}}" class="btn btn-sm btn-primary"><i class="material-icons">create</i></a>
+                        <button type="submit" class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
+                    </form>
                 </td>
               </tr>
             @endforeach

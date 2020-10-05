@@ -45,6 +45,40 @@ class UserController extends Controller
     }
 
 
+    # VIEW EDIT
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('user.edit')->with('user' , $user );
+    }
+
+    # UPDATE EDIT USER
+    public function update(Request $request , $id)
+    {
+
+        # DECLARE VIRALBE
+        $firstName = $request->first_name;
+        $lastName = $request->last_name;
+        $age = $request->age;
+        $dob = $request->date_of_birth;
+
+        # INSERT TO DATABASE TABLE
+        $user = User::find( $id );
+        $user->first_name = $firstName;
+        $user->last_name = $lastName;
+        $user->age = $age;
+        $user->date_of_birth = $dob;
+        $user->save();
+
+        # RETURN BACK INDEX
+        return redirect()->route('user.index');
+    }
+
+
+    public function delete ( $id ){
+        User::find( $id )->delete();
+        return redirect()->route('user.index');
+    }
 
     # TEST
     public function test () {
